@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import com.pulse.spe.api.repositorys.UsuarioRepository;
 import com.pulse.spe.domain.Usuario;
-import com.pulse.spe.domain.UsuarioRepository;
 import com.pulse.spe.domain.dto.UsuarioDTO;
 
 @Service
