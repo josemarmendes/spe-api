@@ -29,12 +29,13 @@ public class UsuarioController {
 		return new ResponseEntity<>(usuarioService.getUsuarios(), HttpStatus.OK);
 	}
 	
-	@GetMapping("/cpf/{cpf}")
-	public ResponseEntity getUsuarioPorCpf(String cpf) {
-		List<UsuarioDTO> usuarioDTO = usuarioService.getUsuariosPorCpf(cpf);
-		
-		return usuarioDTO.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(usuarioDTO);
-	}
+	/*
+	 * @GetMapping("/cpf/{cpf}") public ResponseEntity getUsuarioPorCpf(String cpf)
+	 * { List<UsuarioDTO> usuarioDTO = usuarioService.getUsuariosPorCpf(cpf);
+	 * 
+	 * return usuarioDTO.isEmpty() ? ResponseEntity.noContent().build() :
+	 * ResponseEntity.ok(usuarioDTO); }
+	 */
 		
 	@PostMapping
 	public ResponseEntity post(@RequestBody Usuario usuario) {

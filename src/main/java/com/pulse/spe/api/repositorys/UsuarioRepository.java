@@ -8,6 +8,7 @@ import com.pulse.spe.domain.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	//Usuario findByLogin(String cpf);
 
-	List<Usuario> findByCpf(String cpf);
+	//List<Usuario> findByCpf(String cpf);
 	
+	Usuario findByCpf(String cpf);
 }

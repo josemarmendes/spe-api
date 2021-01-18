@@ -22,12 +22,26 @@ public class UsuarioService {
 
 	public UsuarioDTO insert(Usuario usuario) {
 		Assert.isNull(usuario.getId(), "Não foi possível inserir o registro");
-		
+		if(isUsuarioCadastrado(usuario.getCpf())){
+			throw new RuntimeException("Usuário já está cadastrado");
+		}
 		return UsuarioDTO.create(usuarioRepository.save(usuario));
 	}
 
-	public List<UsuarioDTO> getUsuariosPorCpf(String cpf) {
-		return usuarioRepository.findByCpf(cpf).stream().map(UsuarioDTO::new).collect(Collectors.toList());
+	/*
+	 * public List<UsuarioDTO> getUsuariosPorCpf(String cpf) { return
+	 * usuarioRepository.findByCpf(cpf).stream().map(UsuarioDTO::new).collect(
+	 * Collectors.toList()); }
+	 */
+	
+	public boolean isUsuarioCadastrado(String cpf) {
+		Usuario usuario = usuarioRepository.findByCpf(cpf);
+		
+		if(usuario != null) {
+			return true;
+		}
+		
+ 		return false;
 	}
 
 }
