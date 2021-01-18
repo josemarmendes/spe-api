@@ -19,7 +19,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.ant("/api/**"))
+                .paths(PathSelectors.ant("/**"))
                 .build()
                 .apiInfo(apiInfo());
     }
@@ -27,7 +27,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .contact(new Contact("Josemar Mendes", "", ""))
-                .title("Carros")
+                .title("SPE-Sistema de Ponto eletrônico")
                 .description("Documentação API Spe - Sistema de ponto eletrônico")
                 .license("Apache Licence Version 2.0")
                 .licenseUrl("https://apache.org")
