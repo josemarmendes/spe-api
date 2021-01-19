@@ -17,7 +17,7 @@ public class Batida {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "adw")
+  @JoinColumn(name = "ponto_eletronico_id")
   private PontoEletronico pontoEletronico;
 
   private LocalTime hora;

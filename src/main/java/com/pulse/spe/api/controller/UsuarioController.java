@@ -36,7 +36,7 @@ public class UsuarioController {
 
 
   @PostMapping
-  public ResponseEntity post(@RequestBody Usuario usuario) {
+  public ResponseEntity<UsuarioDTO> post(@RequestBody Usuario usuario) {
 
     UsuarioDTO u = usuarioService.insert(usuario);
     URI location = getUri(u.getId());
