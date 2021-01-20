@@ -1,7 +1,7 @@
 package com.pulse.spe.api.controller;
 
 import com.pulse.spe.domain.model.Usuario;
-import com.pulse.spe.api.model.UsuarioDTO;
+import com.pulse.spe.domain.dto.UsuarioDTO;
 import com.pulse.spe.domain.service.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,37 +15,42 @@ import java.util.List;
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
-  private final UsuarioService usuarioService;
+	private final UsuarioService usuarioService;
 
-  public UsuarioController(UsuarioService usuarioService) {
-    this.usuarioService = usuarioService;
-  }
+	public UsuarioController(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
+	}
 
-  @GetMapping
-  public ResponseEntity<List<UsuarioDTO>> get() {
-    return new ResponseEntity<>(usuarioService.getUsuarios(), HttpStatus.OK);
-  }
+	@GetMapping("/{id}")
+	public ResponseEntity get(@PathVariable("id") Long id) {
+		UsuarioDTO carro = usuarioService.getUsuarioById(id);
 
+		return ResponseEntity.ok(carro);
+	}
 
-  @GetMapping("/cpf/{cpf}")
-  public ResponseEntity<Usuario> getUsuarioPorCpf(String cpf) {
-    Usuario usuarioDTO = usuarioService.getUsuarioPorCpf(cpf);
+	@GetMapping
+	public ResponseEntity<List<UsuarioDTO>> get() {
+		return new ResponseEntity<>(usuarioService.getUsuarios(), HttpStatus.OK);
+	}
 
-    return ResponseEntity.ok(usuarioDTO);
-  }
+	@GetMapping("/cpf/{cpf}")
+	public ResponseEntity getUsuarioPorCpf(@PathVariable("cpf") String cpf) {
+		Usuario usuario = usuarioService.getUsuarioPorCpf(cpf);
 
+		return ResponseEntity.ok(usuario);
+	}
 
-  @PostMapping
-  public ResponseEntity<UsuarioDTO> post(@RequestBody Usuario usuario) {
+	@PostMapping
+	public ResponseEntity<UsuarioDTO> post(@RequestBody Usuario usuario) {
 
-    UsuarioDTO u = usuarioService.insert(usuario);
-    URI location = getUri(u.getId());
-    return ResponseEntity.created(location).build();
+		UsuarioDTO u = usuarioService.insert(usuario);
+		URI location = getUri(u.getId());
+		return ResponseEntity.created(location).build();
 
-  }
+	}
 
-  public URI getUri(Long id) {
-    return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
+	public URI getUri(Long id) {
+		return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
 
-  }
+	}
 }

@@ -1,10 +1,10 @@
 package com.pulse.spe.domain.dto;
 
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
 import org.modelmapper.ModelMapper;
-import com.pulse.spe.domain.Usuario;
+
+import com.pulse.spe.domain.model.Usuario;
 
 import lombok.Data;
 
