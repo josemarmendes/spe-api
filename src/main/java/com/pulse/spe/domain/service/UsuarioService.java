@@ -40,7 +40,7 @@ public class UsuarioService {
 		return UsuarioDTO.create(usuarioRepository.save(usuario));
 	}
 
-	public Usuario getUsuarioPorCpf(String cpf) {
+	public Usuario getUsuarioByCpf(String cpf) {
 		return usuarioRepository.findByCpf(cpf);
 	}
 

@@ -37,5 +37,6 @@ public class UsuarioDTO {
 		ModelMapper modelMapper = new ModelMapper();
 		return modelMapper.map(usuario, UsuarioDTO.class);
 	}
+	
 
 }

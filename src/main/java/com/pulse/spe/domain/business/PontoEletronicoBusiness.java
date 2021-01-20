@@ -25,7 +25,7 @@ public class PontoEletronicoBusiness {
 
 		// regra de negocio do sabado
 		if (horario.getDayOfWeek().equals(DayOfWeek.SATURDAY) && size == 2) {
-			throw new NegocioException("dia de sabado meu fi so pode bate 2x");
+			throw new NegocioException("O registro de ponto no sábado só pode ser efetuado 2x");
 		}
 
 		// Regra de negocio de mais de 4 batidas

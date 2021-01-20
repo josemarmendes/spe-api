@@ -34,9 +34,10 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/cpf/{cpf}")
-	public ResponseEntity getUsuarioPorCpf(@PathVariable("cpf") String cpf) {
-		Usuario usuario = usuarioService.getUsuarioPorCpf(cpf);
+	public ResponseEntity<Usuario> getUsuarioPorCpf(@PathVariable String cpf) {
+		Usuario usuario = usuarioService.getUsuarioByCpf(cpf);
 
+		//return UsuarioDTO.create(usuario);
 		return ResponseEntity.ok(usuario);
 	}
 
