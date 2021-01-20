@@ -18,11 +18,13 @@ import java.util.List;
 public class PontoEletronicoBusiness {
 
 	public void registrarBatida(PontoEletronico pontoEletronico, LocalDateTime horario) {
-		Batida batida = Batida.builder().hora(horario.toLocalTime()).pontoEletronico(pontoEletronico).build();
-
+		//Batida batida = Batida.builder().hora(horario.toLocalTime()).pontoEletronico(pontoEletronico).build();
+		
+		
 		// pode dar um null pointer aqui
 		int size = pontoEletronico.getBatidas().size();
-
+		
+		
 		// regra de negocio do sabado
 		if (horario.getDayOfWeek().equals(DayOfWeek.SATURDAY) && size == 2) {
 			throw new NegocioException("O registro de ponto no sábado só pode ser efetuado 2x");
@@ -34,7 +36,7 @@ public class PontoEletronicoBusiness {
 			throw new NegocioException("não pode bater a 5a vez");
 		}
 
-		pontoEletronico.getBatidas().add(batida);
+		//pontoEletronico.getBatidas().add(pontoEletronico.getBatidas().get(0));
 	}
 
 	/**

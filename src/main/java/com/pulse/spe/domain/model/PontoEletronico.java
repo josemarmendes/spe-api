@@ -24,10 +24,11 @@ public class PontoEletronico {
 
   @OneToMany(fetch = FetchType.EAGER)
   private List<Batida> batidas;
-
-  @OneToMany
-  private List<Ocorrencia> ocorrencias;
-
+  
+  /*
+   * @OneToMany private List<Ocorrencia> ocorrencias;
+   */
+  
   private Long deltaMinutos;
 
   @ManyToOne
