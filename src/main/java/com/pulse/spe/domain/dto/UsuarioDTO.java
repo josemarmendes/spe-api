@@ -18,7 +18,7 @@ public class UsuarioDTO {
 	private String cpf;
 
 	private String email;
-
+	
 	private OffsetDateTime dataCadastro;
 	
 	public UsuarioDTO(Usuario usuario) {

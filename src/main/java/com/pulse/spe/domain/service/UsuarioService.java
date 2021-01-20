@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UsuarioService {
+public class UsuarioService{
 
 	final UsuarioRepository usuarioRepository;
 
@@ -29,7 +29,8 @@ public class UsuarioService {
 	}
 
 	public UsuarioDTO insert(Usuario usuario) {
-
+		
+		
 		Usuario usuarioExistente = usuarioRepository.findByCpf(usuario.getCpf());
 
 		if (usuarioExistente != null && !usuarioExistente.equals(usuario)) {

@@ -1,15 +1,23 @@
 package com.pulse.spe.api.controller;
 
-import com.pulse.spe.domain.model.Usuario;
-import com.pulse.spe.domain.dto.UsuarioDTO;
-import com.pulse.spe.domain.service.UsuarioService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.pulse.spe.domain.dto.UsuarioDTO;
+import com.pulse.spe.domain.model.Usuario;
+import com.pulse.spe.domain.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -37,13 +45,13 @@ public class UsuarioController {
 	public ResponseEntity<Usuario> getUsuarioPorCpf(@PathVariable String cpf) {
 		Usuario usuario = usuarioService.getUsuarioByCpf(cpf);
 
-		//return UsuarioDTO.create(usuario);
 		return ResponseEntity.ok(usuario);
 	}
 
 	@PostMapping
-	public ResponseEntity<UsuarioDTO> post(@RequestBody Usuario usuario) {
-
+	@PreAuthorize("hasAuthority('ADMINISTRADOR')")
+	public ResponseEntity<UsuarioDTO> post(@RequestBody Usuario usuario) throws IOException {
+		
 		UsuarioDTO u = usuarioService.insert(usuario);
 		URI location = getUri(u.getId());
 		return ResponseEntity.created(location).build();
