@@ -23,13 +23,10 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 	private TokenService tokenService;
 	private UsuarioRepository usuarioRepository;
 	
-
 	public AuthenticationFilter(TokenService tokenService,UsuarioRepository usuarioRepository) {
 		this.tokenService = tokenService;
 		this.usuarioRepository =  usuarioRepository;
 	}
-
-
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse resp, FilterChain chain)
@@ -42,8 +39,6 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 		chain.doFilter(req, resp);
 	}
 	
-	
-
 	private void autenticarCliente(String token) {
 		
 		Long  idUsuario = tokenService.getIdUsuario(token);
@@ -58,8 +53,6 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 				UsernamePasswordAuthenticationToken(usuario,null, usuario.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
-
-
 
 	private String recuperarToken(HttpServletRequest req) {
 		

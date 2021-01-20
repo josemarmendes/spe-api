@@ -21,7 +21,6 @@ import com.pulse.spe.domain.service.TokenService;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
-	
 	@Autowired
 	private AutenticacaoService autenticacaoService;
 	
@@ -31,19 +30,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	
-	
 	@Override
 	@Bean
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
 	}
 	
-	
-	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		
 		
 		auth.userDetailsService(autenticacaoService)
 		.passwordEncoder(new BCryptPasswordEncoder());
@@ -64,7 +58,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		.addFilterBefore(new AuthenticationFilter(tokenService,usuarioRepository), UsernamePasswordAuthenticationFilter.class);
 
 	}
-	
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {

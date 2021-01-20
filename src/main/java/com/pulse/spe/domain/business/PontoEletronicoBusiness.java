@@ -18,25 +18,16 @@ import java.util.List;
 public class PontoEletronicoBusiness {
 
 	public void registrarBatida(PontoEletronico pontoEletronico, LocalDateTime horario) {
-		//Batida batida = Batida.builder().hora(horario.toLocalTime()).pontoEletronico(pontoEletronico).build();
 		
-		
-		// pode dar um null pointer aqui
 		int size = pontoEletronico.getBatidas().size();
 		
-		
-		// regra de negocio do sabado
 		if (horario.getDayOfWeek().equals(DayOfWeek.SATURDAY) && size == 2) {
 			throw new NegocioException("O registro de ponto no sábado só pode ser efetuado 2x");
 		}
 
-		// Regra de negocio de mais de 4 batidas
 		if (size == 4) {
-			// não pode bater a 5a vez, por falta de tempo não criei as exceções específicas
 			throw new NegocioException("não pode bater a 5a vez");
 		}
-
-		//pontoEletronico.getBatidas().add(pontoEletronico.getBatidas().get(0));
 	}
 
 	/**
@@ -50,7 +41,6 @@ public class PontoEletronicoBusiness {
 		List<Ocorrencia> ocorrencias = new ArrayList<>();
 		int quantidadeBatidas = pontoEletronico.getBatidas().size();
 
-		// Regra de negocio:"1 batida = falta!
 		if (quantidadeBatidas == 1) {
 			ocorrencias.add(
 					Ocorrencia.builder()
@@ -58,7 +48,7 @@ public class PontoEletronicoBusiness {
 					.tipoOcorrencia(TipoOcorrencia.FALTA)
 					.build());
 			
-			deltaCalculado = -8L; // uma falta é 08:00?
+			deltaCalculado = -8L;
 
 		} else if (quantidadeBatidas == 2 && !pontoEletronico.getData().getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
 			// deduzir das horas do dia trabalhado
@@ -81,7 +71,6 @@ public class PontoEletronicoBusiness {
 		return ocorrencias;
 	}
 
-	// verificar se a ordem importa
 	private Long tempoEntre(LocalTime inicio, LocalTime fim) {
 		return ChronoUnit.HOURS.between(fim, inicio);
 	}

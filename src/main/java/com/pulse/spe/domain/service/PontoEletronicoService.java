@@ -1,6 +1,7 @@
 package com.pulse.spe.domain.service;
 
 import com.pulse.spe.domain.business.PontoEletronicoBusiness;
+import com.pulse.spe.domain.dto.UsuarioDTO;
 import com.pulse.spe.domain.model.Batida;
 import com.pulse.spe.domain.model.PontoEletronico;
 import com.pulse.spe.domain.model.Usuario;
@@ -11,9 +12,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,22 +30,6 @@ public class PontoEletronicoService {
 	@Transactional
 	public PontoEletronico registrarBatida(String cpf, LocalDateTime horario) {
 		Usuario usuario = usuarioRepository.findByCpf(cpf);
-
-		// por enquanto vem com as batidas ja do banco, se mudar para LAZY, carregar as
-		// batidas na mão
-		 //pontoEletronico;
-
-		/*
-		 * try { pontoEletronico =
-		 * pontoEletronicoRepository.findByUsuarioAndData(usuario,
-		 * horario.toLocalDate());
-		 * 
-		 * } catch (RuntimeException e) {
-		 */
-		// procurar a excecao que esses métodos do pontoEletronicoRepository deve
-		// retornar uma excecao se nao achar dados no banco
-
-		// }
 
 		PontoEletronico pontoEletronico = PontoEletronico.builder()
 			.data(horario.toLocalDate())
@@ -62,6 +49,8 @@ public class PontoEletronicoService {
 		return pontoEletronicoRepository.save(pontoEletronico);
 	}
 
-	
+	public List<PontoEletronico> getPontosCpfAndData(String cpf, LocalDate data) {
+		return pontoEletronicoRepository.buscarPontoPorCpfAndData(cpf, data);
+	}
 
 }
