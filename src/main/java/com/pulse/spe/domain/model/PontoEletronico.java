@@ -17,6 +17,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,13 +38,10 @@ public class PontoEletronico {
 	private Long id;
 
 	private LocalDate data;
-
-	@OneToMany(fetch = FetchType.EAGER)
+	
+	@JsonManagedReference
+	@OneToMany(fetch = FetchType.LAZY)
 	private List<Batida> batidas;
-
-	/*
-	 * @OneToMany private List<Ocorrencia> ocorrencias;
-	 */
 
 	private Long deltaMinutos;
 

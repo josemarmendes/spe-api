@@ -15,5 +15,6 @@ public interface PontoEletronicoRepository extends JpaRepository<PontoEletronico
   
   @Query("select p from PontoEletronico p where p.usuario.cpf = :cpf and p.data = :data")
   List<PontoEletronico> buscarPontoPorCpfAndData(@Param("cpf") String cpf, @Param("data") LocalDate data);
-
+  
+  
 }

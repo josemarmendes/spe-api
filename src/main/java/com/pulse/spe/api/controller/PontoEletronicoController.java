@@ -35,8 +35,14 @@ public class PontoEletronicoController {
 	}
 	
 	@GetMapping("/cpf/{cpf}/{data}")
-	public ResponseEntity<List<PontoEletronico>> getUsuarioPorCpf(@PathVariable String cpf, @PathVariable  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
+	public ResponseEntity<List<PontoEletronico>> getUsuarioPorCpfAndData(@PathVariable String cpf, @PathVariable  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
 		List<PontoEletronico> pontos = pontoEletronicoService.getPontosCpfAndData(cpf, data);
+		return ResponseEntity.ok(pontos);
+	}
+	
+	@GetMapping("/cpf/{cpf}}")
+	public ResponseEntity<List<PontoEletronico>> getUsuarioPorCpf(@PathVariable String cpf) {
+		List<PontoEletronico> pontos = pontoEletronicoService.getPontosCpfAndData(cpf, LocalDate.now());
 		return ResponseEntity.ok(pontos);
 	}
 
