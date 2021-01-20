@@ -1,0 +1,116 @@
+
+CREATE SCHEMA spe AUTHORIZATION postgres
+
+-- spe.perfil definition
+
+-- Drop table
+
+-- DROP TABLE spe.perfil;
+
+CREATE TABLE spe.perfil (
+	perfil_id int8 NOT NULL,
+	nome varchar(255) NULL,
+	CONSTRAINT perfil_pkey PRIMARY KEY (perfil_id)
+);
+
+
+-- spe.usuario definition
+
+-- Drop table
+
+-- DROP TABLE spe.usuario;
+
+CREATE TABLE spe.usuario (
+	usuario_id int8 NOT NULL,
+	cpf varchar(255) NULL,
+	data_cadastro timestamp NULL,
+	email varchar(255) NULL,
+	nome varchar(255) NULL,
+	senha varchar(255) NULL,
+	sobrenome varchar(255) NULL,
+	CONSTRAINT usuario_pkey PRIMARY KEY (usuario_id)
+);
+
+
+-- spe.ponto_eletronico definition
+
+-- Drop table
+
+-- DROP TABLE spe.ponto_eletronico;
+
+CREATE TABLE spe.ponto_eletronico (
+	ponto_eletronico_id int8 NOT NULL,
+	"data" date NULL,
+	delta_minutos int8 NULL,
+	usuario_codigo int8 NULL,
+	CONSTRAINT ponto_eletronico_pkey PRIMARY KEY (ponto_eletronico_id),
+	CONSTRAINT fksv3vxtn7hsovo3dhfq4chy6oe FOREIGN KEY (usuario_codigo) REFERENCES spe.usuario(usuario_id)
+);
+
+
+-- spe.usuario_perfil definition
+
+-- Drop table
+
+-- DROP TABLE spe.usuario_perfil;
+
+CREATE TABLE spe.usuario_perfil (
+	usuario_id int8 NOT NULL,
+	perfil_id int8 NOT NULL,
+	CONSTRAINT fk22cgfn0obntlvqyfn33pyk24d FOREIGN KEY (perfil_id) REFERENCES spe.perfil(perfil_id),
+	CONSTRAINT fknrjqnbylalt4ykxbcef24f57w FOREIGN KEY (usuario_id) REFERENCES spe.usuario(usuario_id)
+);
+
+
+-- spe.batida definition
+
+-- Drop table
+
+-- DROP TABLE spe.batida;
+
+CREATE TABLE spe.batida (
+	batida_id int8 NOT NULL,
+	hora time NULL,
+	ponto_eletronico_id int8 NULL,
+	CONSTRAINT batida_pkey PRIMARY KEY (batida_id),
+	CONSTRAINT fkgaf93ili1yyig7g7k1xctolkc FOREIGN KEY (ponto_eletronico_id) REFERENCES spe.ponto_eletronico(ponto_eletronico_id)
+);
+
+
+-- spe.ocorrencia definition
+
+-- Drop table
+
+-- DROP TABLE spe.ocorrencia;
+
+CREATE TABLE spe.ocorrencia (
+	ocorrencia_id int8 NOT NULL,
+	tipo_ocorrencia int4 NULL,
+	ponto_eletronico_ponto_eletronico_id int8 NULL,
+	CONSTRAINT ocorrencia_pkey PRIMARY KEY (ocorrencia_id),
+	CONSTRAINT fkdfu8oqv7iivdxddhs0xg4ul67 FOREIGN KEY (ponto_eletronico_ponto_eletronico_id) REFERENCES spe.ponto_eletronico(ponto_eletronico_id)
+);
+
+SELECT batida_id, hora, ponto_eletronico_id
+FROM spe.batida;
+
+select * from spe.ocorrencia
+
+select * from spe.usuario
+
+select * from spe.batida batida
+inner join spe.ponto_eletronico ponto
+	on ponto.ponto_eletronico_id = batida.ponto_eletronico_id 
+inner join spe.usuario usu
+	on usu.usuario_id = ponto.usuario_codigo 
+where usu.cpf = '336.497.250-88'
+and ponto.data = '2021-01-20'
+
+INSERT INTO spe.perfil
+(perfil_id, nome)
+VALUES(1, 'ADMINISTRADOR'), (2, 'COLABORADOR');
+
+INSERT INTO spe.usuario_perfil
+(usuario_id, perfil_id)
+VALUES(1, 1), (2, 2);
+
